@@ -11,7 +11,8 @@
         <activity
             android:name=".TextSaver"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar"
+             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,7 +21,7 @@
         </activity>
         <activity
             android:name=".DisplayMessageActivity"
-            android:label="@string/title_activity_display_message"
+            android:label="AddText"
             android:parentActivityName=".TextSaver"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
