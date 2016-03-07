@@ -75,5 +75,12 @@
             android:onClick="sendMessage"
             android:layout_gravity="center_horizontal" />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Period 1: APUSH"
+            android:id="@+id/P1"
+            android:layout_gravity="center_horizontal" />
+
     </LinearLayout>
 </RelativeLayout>

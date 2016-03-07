@@ -27,6 +27,7 @@ public class DisplayMessageActivity extends AppCompatActivity {
 
     private static final String STOREASSIGNMENT = "assignment.txt";
     String n = new String();
+    String m = new String();
 
 
     private EditText assigTxt;
@@ -69,8 +70,11 @@ public class DisplayMessageActivity extends AppCompatActivity {
 
         p2 = (TextView) findViewById(R.id.textView2);
         p2.setText(n);
+        //m = new String(n.substring(n.indexOf(":") - 1, n.indexOf(":")));
+        //System.out.println(n + "   " + m);
 
         fillAssig();
+
 
 
 
@@ -81,8 +85,8 @@ public class DisplayMessageActivity extends AppCompatActivity {
     public void saveAssig(View v)
     {
         try {
-            OutputStreamWriter sendOut = new OutputStreamWriter(openFileOutput(STOREASSIGNMENT
-                    + n.substring(n.indexOf(":") - 1, n.indexOf(":")), 0));
+            OutputStreamWriter sendOut = new OutputStreamWriter(openFileOutput(STOREASSIGNMENT +n.substring(0,1)
+                    /*+ n.substring(n.indexOf(":") - 1, n.indexOf(":"))*/, 0));
             sendOut.write(assigTxt.getText().toString());
             sendOut.close();
         }
@@ -100,11 +104,14 @@ public class DisplayMessageActivity extends AppCompatActivity {
         assigTxt.setVisibility(View.VISIBLE);
     }
 
+    /*+ n.substring(n.indexOf(":") - 1, n.indexOf(":"))*/
+    /*+ n.substring(n.indexOf(":") - 1, n.indexOf(":"))*/
+
     public void fillAssig()
     {
 
         try{
-            InputStream in = openFileInput(STOREASSIGNMENT + n.substring(0,1));
+            InputStream in = openFileInput(STOREASSIGNMENT + n.substring(0,1)/*+ n.substring(n.indexOf(":") - 1, n.indexOf(":"))*/);
 
             InputStreamReader tmp=new InputStreamReader(in);
 

@@ -24,6 +24,7 @@ public class TextSaver extends AppCompatActivity implements View.OnClickListener
     public final static String STOREPERIOD="j";
     //private final static String STORETEXT2="storethetext.txt";
     Button period5;
+    Button period1;
     PeriodData p5;
 
     //private EditText txtEditor;
@@ -43,6 +44,8 @@ public class TextSaver extends AppCompatActivity implements View.OnClickListener
         //period5.setOnClickListener(this);
         period5 = (Button) this.findViewById(R.id.newAct);
         period5.setOnClickListener(this);
+        period1 = (Button) this.findViewById(R.id.P1);
+        period1.setOnClickListener(this);
         p5 = new PeriodData(5, "PreCalc H");
 
         //readFileInEditor();
@@ -86,8 +89,16 @@ public class TextSaver extends AppCompatActivity implements View.OnClickListener
     }*/
     public void onClick(View v)
     {
+        Button m = (Button)v;
 
-        switch(v.getId())
+        Intent intent = new Intent(this, DisplayMessageActivity.class);
+        String temp = new String(m.getText().toString());
+        String pNum = new String(temp.substring(temp.indexOf(":") - 1, temp.indexOf(":")));
+        String pName = new String(temp.substring(indexOfSecondSpace(temp) + 1));
+        intent.putExtra(STOREPERIOD, pNum + " " + pName);
+        startActivity(intent);
+
+        /*switch(v.getId())
         {
             case R.id.newAct:
                 Intent intent = new Intent(this, DisplayMessageActivity.class);
@@ -97,7 +108,7 @@ public class TextSaver extends AppCompatActivity implements View.OnClickListener
                 intent.putExtra(STOREPERIOD, pNum + " " + pName);
                 startActivity(intent);
                 break;
-        }
+        }*/
 
     }
 
