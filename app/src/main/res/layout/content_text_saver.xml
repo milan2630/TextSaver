@@ -18,7 +18,7 @@
 
         android:weightSum="1">
 
-        <TextView
+   <!--     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
@@ -66,13 +66,14 @@
             android:text="New Button"
             android:id="@+id/button2"
             android:onClick="saveClicked"/>
-
+-->
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="button_send"
+            android:text="Period 5: Honors PreCalc"
             android:id="@+id/newAct"
-            android:onClick="sendMessage"/>
+            android:onClick="sendMessage"
+            android:layout_gravity="center_horizontal" />
 
     </LinearLayout>
 </RelativeLayout>
