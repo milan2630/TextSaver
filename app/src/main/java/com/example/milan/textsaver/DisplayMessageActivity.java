@@ -81,7 +81,8 @@ public class DisplayMessageActivity extends AppCompatActivity {
     public void saveAssig(View v)
     {
         try {
-            OutputStreamWriter sendOut = new OutputStreamWriter(openFileOutput(STOREASSIGNMENT + n.substring(0,1), 0));
+            OutputStreamWriter sendOut = new OutputStreamWriter(openFileOutput(STOREASSIGNMENT
+                    + n.substring(n.indexOf(":") - 1, n.indexOf(":")), 0));
             sendOut.write(assigTxt.getText().toString());
             sendOut.close();
         }
