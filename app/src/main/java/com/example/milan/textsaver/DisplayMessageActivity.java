@@ -1,26 +1,15 @@
 package com.example.milan.textsaver;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.TextView;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.io.OutputStreamWriter;
 
 public class DisplayMessageActivity extends AppCompatActivity {
@@ -28,15 +17,9 @@ public class DisplayMessageActivity extends AppCompatActivity {
     private static final String STOREASSIGNMENT = "assignment.txt";
     String n = new String();
     String m = new String();
-
-
     private EditText assigTxt;
     private TextView p1;
     private TextView p2;
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,14 +27,8 @@ public class DisplayMessageActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        
-
-
-
         assigTxt = (EditText)findViewById(R.id.assigInput);
         p1 = (TextView) findViewById(R.id.assignmentFin);
-
-
 
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
@@ -70,23 +47,15 @@ public class DisplayMessageActivity extends AppCompatActivity {
 
         p2 = (TextView) findViewById(R.id.textView2);
         p2.setText(n);
-        //m = new String(n.substring(n.indexOf(":") - 1, n.indexOf(":")));
-        //System.out.println(n + "   " + m);
 
         fillAssig();
-
-
-
-
-
     }
 
 
     public void saveAssig(View v)
     {
         try {
-            OutputStreamWriter sendOut = new OutputStreamWriter(openFileOutput(STOREASSIGNMENT +n.substring(0,1)
-                    /*+ n.substring(n.indexOf(":") - 1, n.indexOf(":"))*/, 0));
+            OutputStreamWriter sendOut = new OutputStreamWriter(openFileOutput(STOREASSIGNMENT +n.substring(0,1), 0));
             sendOut.write(assigTxt.getText().toString());
             sendOut.close();
         }
@@ -103,9 +72,6 @@ public class DisplayMessageActivity extends AppCompatActivity {
         p1.setVisibility(View.INVISIBLE);
         assigTxt.setVisibility(View.VISIBLE);
     }
-
-    /*+ n.substring(n.indexOf(":") - 1, n.indexOf(":"))*/
-    /*+ n.substring(n.indexOf(":") - 1, n.indexOf(":"))*/
 
     public void fillAssig()
     {
