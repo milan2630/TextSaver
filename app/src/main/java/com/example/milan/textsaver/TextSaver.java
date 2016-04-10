@@ -69,8 +69,8 @@ public class TextSaver extends AppCompatActivity implements View.OnClickListener
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
         AlarmManager manager = (AlarmManager) getSystemService(Activity.ALARM_SERVICE);
         Calendar Blubber = Calendar.getInstance();
-        int hour = 11;
-        int minute = 02;
+        int hour = 8;
+        int minute = 9;
         Blubber.setTimeInMillis(System.currentTimeMillis());
         if (Blubber.get(Calendar.HOUR_OF_DAY) > hour || (Blubber.get(Calendar.HOUR_OF_DAY) == hour
                 && Blubber.get(Calendar.MINUTE) > minute))
@@ -87,7 +87,10 @@ public class TextSaver extends AppCompatActivity implements View.OnClickListener
         }
         Blubber.set(Calendar.HOUR_OF_DAY, hour);
         Blubber.set(Calendar.MINUTE, minute);
-        manager.setRepeating(AlarmManager.RTC_WAKEUP, Blubber.getTimeInMillis(), 24 * 60 * 60 * 1000, pendingIntent);
+        manager.setRepeating(AlarmManager.RTC_WAKEUP, Blubber.getTimeInMillis(), 47 * 60 * 1000, pendingIntent);
+        if(Blubber.get(Calendar.HOUR_OF_DAY) > 15){
+            manager.cancel(pendingIntent);
+        }
     }
 
     @Override
