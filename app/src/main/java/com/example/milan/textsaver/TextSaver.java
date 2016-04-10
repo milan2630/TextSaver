@@ -70,7 +70,7 @@ public class TextSaver extends AppCompatActivity implements View.OnClickListener
         AlarmManager manager = (AlarmManager) getSystemService(Activity.ALARM_SERVICE);
         Calendar Blubber = Calendar.getInstance();
         int hour = 11;
-        int minute = 00;
+        int minute = 01;
         Blubber.setTimeInMillis(System.currentTimeMillis());
         if (Blubber.get(Calendar.HOUR_OF_DAY) > hour || (Blubber.get(Calendar.HOUR_OF_DAY) == hour
                 && Blubber.get(Calendar.MINUTE) > minute))
