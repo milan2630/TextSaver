@@ -87,10 +87,8 @@ public class TextSaver extends AppCompatActivity implements View.OnClickListener
         }
         Blubber.set(Calendar.HOUR_OF_DAY, hour);
         Blubber.set(Calendar.MINUTE, minute);
-        manager.setRepeating(AlarmManager.RTC_WAKEUP, Blubber.getTimeInMillis(), 47 * 60 * 1000, pendingIntent);
-        if(Blubber.get(Calendar.HOUR_OF_DAY) > 15){
-            manager.cancel(pendingIntent);
-        }
+        manager.setRepeating(AlarmManager.RTC_WAKEUP, Blubber.getTimeInMillis(), 48 * 60 * 1000, pendingIntent);
+
     }
 
     @Override
