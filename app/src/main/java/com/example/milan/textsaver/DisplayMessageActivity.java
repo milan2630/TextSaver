@@ -14,12 +14,12 @@ import java.io.OutputStreamWriter;
 
 public class DisplayMessageActivity extends AppCompatActivity {
 
-    private static final String STOREASSIGNMENT = "assignment.txt";
+    private static final String STOREASSIGNMENT = "assignment.txt";// text file storing the assignment
     String n = new String();
     String m = new String();
-    private EditText assigTxt;
-    private TextView p1;
-    private TextView p2;
+    private EditText assigTxt; // declares an editable textbox
+    private TextView p1;// declares a text object, un-editable
+    private TextView p2;// declares a text object, un-editable
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,31 +27,33 @@ public class DisplayMessageActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        assigTxt = (EditText)findViewById(R.id.assigInput);
-        p1 = (TextView) findViewById(R.id.assignmentFin);
+        assigTxt = (EditText)findViewById(R.id.assigInput);//initializes editable textbox
+        p1 = (TextView) findViewById(R.id.assignmentFin);//initializes non editable text object
 
-        if (savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
-            if (extras == null) {
-                n = null;
-            }
-            else
-            {
-                n = extras.getString(TextSaver.STOREPERIOD);
-            }
-        }
-        else
-        {
-            n = (String) savedInstanceState.getSerializable(TextSaver.STOREPERIOD);
-        }
 
-        p2 = (TextView) findViewById(R.id.textView2);
-        p2.setText(n);
+        if (savedInstanceState == null) {                                           //This code sets the String n
+            Bundle extras = getIntent().getExtras();                                //equal to whatever was passed in when the
+            if (extras == null) {                                                   //activity was created
+                n = null;                                                           //
+            }                                                                       //I passed in the period number and the
+            else {                                                                  //subject and the string n is later used
+                n = extras.getString(TextSaver.STOREPERIOD);                        //as the header to the page
+            }                                                                       //
+        }                                                                           //
+        else {                                                                      //
+            n = (String) savedInstanceState.getSerializable(TextSaver.STOREPERIOD); //
+        }                                                                           //
+
+
+        p2 = (TextView) findViewById(R.id.textView2);//initializes non editable text object
+        p2.setText(n);//sets the header of the page to the String n (the period number and subject)
 
         fillAssig();
     }
 
 
+    //method called on the click of the button "Save"
+    //saves the text inputted into the textbox to the text file
     public void saveAssig(View v)
     {
         try {
@@ -61,23 +63,28 @@ public class DisplayMessageActivity extends AppCompatActivity {
         }
         catch(Throwable t)
         {}
-        p1.setText(assigTxt.getText().toString());
-        assigTxt.setVisibility(View.INVISIBLE);
-        p1.setVisibility(View.VISIBLE);
+
+        p1.setText(assigTxt.getText().toString());//sets the text to also appear in the non editable text box
+        assigTxt.setVisibility(View.INVISIBLE);//makes the editable textbox disappear
+        p1.setVisibility(View.VISIBLE);//makes the non editable text object appear, these last couple lines are to make it look more official
 
     }
 
+    //method called on click of button "Edit"
+    //editable textbox appears, non editable disappears
     public void enableEdit(View v)
     {
         p1.setVisibility(View.INVISIBLE);
         assigTxt.setVisibility(View.VISIBLE);
     }
 
+    //method called on creation of activity
+    //fills the assigment with whatever was in there before (gets the text from the text file and puts it in the text box)
     public void fillAssig()
     {
 
         try{
-            InputStream in = openFileInput(STOREASSIGNMENT + n.substring(0,1)/*+ n.substring(n.indexOf(":") - 1, n.indexOf(":"))*/);
+            InputStream in = openFileInput(STOREASSIGNMENT + n.substring(0,1));
 
             InputStreamReader tmp=new InputStreamReader(in);
 

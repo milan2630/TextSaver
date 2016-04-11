@@ -5,6 +5,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import java.util.Calendar;
+
 /**
  * Created by milan on 4/9/16.
  */
@@ -16,10 +18,18 @@ import android.content.Intent;
 
         public void onReceive(Context context, Intent intent){
 
-            Intent service1 = new Intent(context, MyAlarmService.class);
-            context.startService(service1);
 
+            Calendar calendar = Calendar.getInstance();
+            /*if(calendar.get(Calendar.HOUR_OF_DAY) > 15 || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY
+                    || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {}*/
+            if(calendar.get(Calendar.HOUR_OF_DAY) > 18)
+            {}
+            else
+            {
+                Intent service1 = new Intent(context, MyAlarmService.class);
+                context.startService(service1);
 
+            }
         }
     }
 
