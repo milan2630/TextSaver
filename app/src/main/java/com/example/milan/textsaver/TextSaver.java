@@ -17,8 +17,8 @@ import java.util.Calendar;
 
 public class TextSaver extends AppCompatActivity implements View.OnClickListener {
 
-    public final static String STOREPERIOD = "j";
-    Button period1, period2, period3, period4, period5, period6, period7, period8, period9;
+    public final static String STOREPERIOD = "j";//text file the period number and name is saved to
+    Button period1, period2, period3, period4, period5, period6, period7, period8, period9; // declaration of button objects
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +26,8 @@ public class TextSaver extends AppCompatActivity implements View.OnClickListener
         setContentView(R.layout.activity_text_saver);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        period1 = (Button) this.findViewById(R.id.button);
-        period1.setOnClickListener(this);
+        period1 = (Button) this.findViewById(R.id.button);//button variable initialized
+        period1.setOnClickListener(this);//allows the computer to know when a button is clicked
         period2 = (Button) this.findViewById(R.id.button2);
         period2.setOnClickListener(this);
         period3 = (Button) this.findViewById(R.id.button3);
@@ -47,6 +47,9 @@ public class TextSaver extends AppCompatActivity implements View.OnClickListener
         setAlarm();
     }
 
+    //method called when a button is clicked
+    //sends you to a new activity, the DisplayMessageActivity
+    //most of the code is used to pass in the period number and subject of the button that was clicked
     public void onClick(View v) {
         Button m = (Button) v;
 
@@ -58,6 +61,7 @@ public class TextSaver extends AppCompatActivity implements View.OnClickListener
         startActivity(intent);
     }
 
+    //helper method for onClick
     public int indexOfSecondSpace(String inString) {
         String x = new String(inString.substring(inString.indexOf(" ") + 1));
         int temp = inString.indexOf(" ") + 1;
