@@ -70,9 +70,12 @@ public class TextSaver extends AppCompatActivity implements View.OnClickListener
 
     private void setAlarm() {
         Intent notificationIntent = new Intent(this, MyBroadcastReceiver.class);
+        //This intent states that, depending which action it is linked to, will run code in the MyBroadcast class
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        //This is basically saying that the system should wait for something to occur and when it does it should run that the NotificationIntent
         AlarmManager manager = (AlarmManager) getSystemService(Activity.ALARM_SERVICE);
-        Calendar Blubber = Calendar.getInstance();
+        //This is the object we use to get create an alarm
+        Calendar Blubber = Calendar.getInstance(); //Gets the current date
         int hour = 8;
         int minute = 9;
         Blubber.setTimeInMillis(System.currentTimeMillis());
@@ -91,7 +94,9 @@ public class TextSaver extends AppCompatActivity implements View.OnClickListener
         }
         Blubber.set(Calendar.HOUR_OF_DAY, hour);
         Blubber.set(Calendar.MINUTE, minute);
-        manager.setRepeating(AlarmManager.RTC_WAKEUP, Blubber.getTimeInMillis(), 48 * 60 * 1000, pendingIntent);
+        manager.setRepeating(AlarmManager.RTC_WAKEUP, Blubber.getTimeInMillis(), 47 * 60 * 1000, pendingIntent); // sets the alarm to go off every 47 minutes
+        //^ This alarm is later cancelled after 3 o'clock and starts again at 8:09 the next day
+        //Look at MyBroadcast Receiver class if interested, still working on it at the moment
 
     }
 
