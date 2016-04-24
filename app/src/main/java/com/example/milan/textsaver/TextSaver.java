@@ -3,6 +3,7 @@ package com.example.milan.textsaver;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -18,7 +20,9 @@ import java.util.Calendar;
 public class TextSaver extends AppCompatActivity implements View.OnClickListener {
 
     public final static String STOREPERIOD = "j";//text file the period number and name is saved to
+
     Button period1, period2, period3, period4, period5, period6, period7, period8, period9; // declaration of button objects
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,24 +49,39 @@ public class TextSaver extends AppCompatActivity implements View.OnClickListener
         period9 = (Button) this.findViewById(R.id.button9);
         period9.setOnClickListener(this);
         setAlarm();
+
+
+
+
+
     }
 
     //method called when a button is clicked
     //sends you to a new activity, the DisplayMessageActivity
     //most of the code is used to pass in the period number and subject of the button that was clicked
     public void onClick(View v) {
-        Button m = (Button) v;
+        Button clicked = (Button) v;
+        Intent x = sendToAssignmentActivity(this, parseInfoFromButtonText(clicked));
+        startActivity(x);
+    }
 
-        Intent intent = new Intent(this, DisplayMessageActivity.class);
-        String temp = new String(m.getText().toString());
+    public static Intent sendToAssignmentActivity(Context x, String extras)
+    {
+        Intent intent = new Intent(x, DisplayMessageActivity.class);
+        intent.putExtra(TextSaver.STOREPERIOD, extras);
+        return intent;
+    }
+
+    public static String parseInfoFromButtonText(Button button)
+    {
+        String temp = new String(button.getText().toString());
         String pNum = new String(temp.substring(temp.indexOf(":") - 1, temp.indexOf(":")));
         String pName = new String(temp.substring(indexOfSecondSpace(temp) + 1));
-        intent.putExtra(STOREPERIOD, pNum + " " + pName);
-        startActivity(intent);
+        return pNum + " " + pName;
     }
 
     //helper method for onClick
-    public int indexOfSecondSpace(String inString) {
+    public static int indexOfSecondSpace(String inString) {
         String x = new String(inString.substring(inString.indexOf(" ") + 1));
         int temp = inString.indexOf(" ") + 1;
         return temp + x.indexOf(" ");
@@ -75,29 +94,53 @@ public class TextSaver extends AppCompatActivity implements View.OnClickListener
         //This is basically saying that the system should wait for something to occur and when it does it should run that the NotificationIntent
         AlarmManager manager = (AlarmManager) getSystemService(Activity.ALARM_SERVICE);
         //This is the object we use to get create an alarm
-        Calendar Blubber = Calendar.getInstance(); //Gets the current date
-        int hour = 8;
-        int minute = 9;
-        Blubber.setTimeInMillis(System.currentTimeMillis());
-        if (Blubber.get(Calendar.HOUR_OF_DAY) > hour || (Blubber.get(Calendar.HOUR_OF_DAY) == hour
-                && Blubber.get(Calendar.MINUTE) > minute))
+        //Calendar Blubber = Calendar.getInstance(); //Gets the current date
+        int hourX;
+        int minuteX;
+        hourX = 8;//for real
+        minuteX = 10;//
+        Calendar calendar = Calendar.getInstance();
+        if(calendar.get(Calendar.HOUR_OF_DAY) > 14)
         {
-            if (Blubber.get(Calendar.DAY_OF_YEAR) != 365 && Blubber.get(Calendar.DAY_OF_YEAR) != 366)
+            calendar.set(Calendar.HOUR_OF_DAY, hourX);
+            calendar.set(Calendar.MINUTE, minuteX);
+            calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) + 1);
+        }
+        int time = letsTry(hourX * 100 + minuteX, 30, calendar.get(Calendar.HOUR_OF_DAY) * 100 + calendar.get(Calendar.MINUTE), TextSaver.this);
+        int hour = time / 100;
+        int minute = time % 100;
+        Toast.makeText(TextSaver.this, "Notification set for: " + hour + ": " + minute, Toast.LENGTH_LONG).show();
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minute);
+        manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 46 * 60 * 1000, pendingIntent); // sets the alarm to go off every 47 minutes
+        //^ This alarm is later cancelled after 3 o'clock and starts again at 8:09 the next day
+        //Look at MyBroadcast Receiver class if interested, still working on it at the moment
+    }
+
+    public static int firstTimeAfter(int timeStart, int interval, int time, Context context)
+    {
+        int temp = timeStart;
+            if((temp + interval) % 100 < 60)
             {
-                Blubber.set(Calendar.DAY_OF_YEAR, Blubber.get(Calendar.DAY_OF_YEAR) + 1);
+                temp += interval;
             }
             else
             {
-                Blubber.set(Calendar.DAY_OF_YEAR, 1);
-                Blubber.set(Calendar.YEAR, Blubber.get(Calendar.YEAR) + 1);
+                int add = ((temp % 100) + interval) - 60;
+                temp = (((temp + 100) / 100) * 100) + add;
             }
-        }
-        Blubber.set(Calendar.HOUR_OF_DAY, hour);
-        Blubber.set(Calendar.MINUTE, minute);
-        manager.setRepeating(AlarmManager.RTC_WAKEUP, Blubber.getTimeInMillis(), 47 * 60 * 1000, pendingIntent); // sets the alarm to go off every 47 minutes
-        //^ This alarm is later cancelled after 3 o'clock and starts again at 8:09 the next day
-        //Look at MyBroadcast Receiver class if interested, still working on it at the moment
+        return temp;
+    }
 
+    public static int letsTry(int timeStart, int interval, int time, Context context)
+    {
+        int temp = timeStart;
+        while(temp < time) {
+            temp = firstTimeAfter(temp, 30, time, context);
+            temp = firstTimeAfter(temp, 16, time, context);
+        }
+        return temp;
     }
 
     @Override

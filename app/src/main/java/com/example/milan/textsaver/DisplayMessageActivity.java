@@ -16,7 +16,7 @@ public class DisplayMessageActivity extends AppCompatActivity {
 
     private static final String STOREASSIGNMENT = "assignment.txt";// text file storing the assignment
     String n = new String();
-    String m = new String();
+
     private EditText assigTxt; // declares an editable textbox
     private TextView p1;// declares a text object, un-editable
     private TextView p2;// declares a text object, un-editable
@@ -46,7 +46,7 @@ public class DisplayMessageActivity extends AppCompatActivity {
 
 
         p2 = (TextView) findViewById(R.id.textView2);//initializes non editable text object
-        p2.setText(n);//sets the header of the page to the String n (the period number and subject)
+        p2.setText("Period " + n.substring(0,1));//sets the header of the page to the String n (the period number and subject)
 
         fillAssig();
     }
@@ -76,6 +76,7 @@ public class DisplayMessageActivity extends AppCompatActivity {
     {
         p1.setVisibility(View.INVISIBLE);
         assigTxt.setVisibility(View.VISIBLE);
+
     }
 
     //method called on creation of activity
@@ -96,7 +97,7 @@ public class DisplayMessageActivity extends AppCompatActivity {
 
             while ((str = reader.readLine()) != null) {
 
-                buf.append(str+"\n");
+                buf.append(str+" ");
 
             }
 
@@ -104,10 +105,25 @@ public class DisplayMessageActivity extends AppCompatActivity {
 
             p1.setText(buf.toString());
             assigTxt.setText(buf.toString());
-            p1.setVisibility(View.VISIBLE);
-            assigTxt.setVisibility(View.INVISIBLE);
+            p1.setVisibility(View.INVISIBLE);
+            assigTxt.setVisibility(View.VISIBLE);
         }
         catch (Throwable t){}
+    }
+
+    public void clearText(View v)
+    {
+        try {
+            OutputStreamWriter sendOut = new OutputStreamWriter(openFileOutput(STOREASSIGNMENT +n.substring(0,1), 0));
+            sendOut.write("");
+            sendOut.close();
+        }
+        catch(Throwable t)
+        {}
+        assigTxt.setText("");
+        p1.setText("");
+        p1.setVisibility(View.INVISIBLE);
+        assigTxt.setVisibility(View.VISIBLE);
     }
 
 

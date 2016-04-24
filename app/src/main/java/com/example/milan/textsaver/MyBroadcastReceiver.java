@@ -20,14 +20,15 @@ import java.util.Calendar;
 
 
             Calendar calendar = Calendar.getInstance();
+            //Intent service1 = new Intent(context, MyAlarmService.class);
+            //context.startService(service1);
             if(calendar.get(Calendar.HOUR_OF_DAY) > 15 || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY
                     || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {}
 
-            else
+            else     //THIS PART IS NEEDED DO NOT DELETE IT
             {
                 Intent service1 = new Intent(context, MyAlarmService.class);
                 context.startService(service1);
-
             }
         }
     }
