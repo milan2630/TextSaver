@@ -25,7 +25,7 @@ import java.util.Calendar;
             if(calendar.get(Calendar.HOUR_OF_DAY) > 15 || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY
                     || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
                         
-                        //reset to 8:10
+                        //reset to 8:10 and setalarm
                     }
 
             else     //THIS PART IS NEEDED DO NOT DELETE IT
@@ -33,6 +33,7 @@ import java.util.Calendar;
                 Intent service1 = new Intent(context, MyAlarmService.class);
                 context.startService(service1);
                 //minute +=47
+                //setalarmagain
             }
         }
     }
