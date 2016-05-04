@@ -116,6 +116,7 @@ public class TextSaver extends AppCompatActivity implements View.OnClickListener
         manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 46 * 60 * 1000, pendingIntent); // sets the alarm to go off every 47 minutes
         //^ This alarm is later cancelled after 3 o'clock and starts again at 8:09 the next day
         //Look at MyBroadcast Receiver class if interested, still working on it at the moment
+        //take out junk and just setalarm to 8:10 once make sharedpreferences so it only works once boolean
     }
 
     public static int firstTimeAfter(int timeStart, int interval, int time, Context context)
