@@ -19,15 +19,15 @@ import java.util.Calendar;
         public static final String PNUM_KEY = "numKey11";
         SharedPreferences sharedpreferences;
         public void onReceive(Context context, Intent intent){
-    
+            sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedpreferences.edit();
 
             Calendar calendar = Calendar.getInstance();
             //Intent service1 = new Intent(context, MyAlarmService.class);
             //context.startService(service1);
             if(calendar.get(Calendar.HOUR_OF_DAY) > 15 || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY
                     || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
-                        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedpreferences.edit();
+                        
                         //reset to 8:10 and setalarm
                     }
 
