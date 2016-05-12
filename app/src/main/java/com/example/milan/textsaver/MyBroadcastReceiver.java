@@ -26,7 +26,8 @@ import java.util.Calendar;
             //context.startService(service1);
             if(calendar.get(Calendar.HOUR_OF_DAY) > 15 || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY
                     || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
-                        
+                        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedpreferences.edit();
                         //reset to 8:10 and setalarm
                     }
 
