@@ -15,9 +15,11 @@ import java.util.Calendar;
 
 
     public class MyBroadcastReceiver extends BroadcastReceiver {
-
+        public static final String MyPREFERENCES = "MyPrefs11";
+        public static final String PNUM_KEY = "numKey11";
+        SharedPreferences sharedpreferences;
         public void onReceive(Context context, Intent intent){
-
+    
 
             Calendar calendar = Calendar.getInstance();
             //Intent service1 = new Intent(context, MyAlarmService.class);
