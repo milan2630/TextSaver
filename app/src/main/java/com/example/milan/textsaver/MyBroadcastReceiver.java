@@ -23,15 +23,17 @@ import java.util.Calendar;
         public void onReceive(Context context, Intent intent){
             sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedpreferences.edit();
-            int hour = 8;
-            int minute = 10;
+            int hour;
+            int minute;
             Calendar calendar = Calendar.getInstance();
             //Intent service1 = new Intent(context, MyAlarmService.class);
             //context.startService(service1);
             if(calendar.get(Calendar.HOUR_OF_DAY) > 15 || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY
                     || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
-                        hour = sharedpreferences.putInt(HOUR, 8);
-                        hour = sharedpreferences.putInt(HOUR, 8);
+                        editor.putInt(HOUR, 8);
+                        editor.putInt(MINUTE, 10);
+                        hour = sharedpreferences.getInt(HOUR, 8);
+                        minute = sharepreferences.getInt(MINUTE, 10);
                         
                         //reset to 8:10 and setalarm
                     }
@@ -40,6 +42,9 @@ import java.util.Calendar;
             {
                 Intent service1 = new Intent(context, MyAlarmService.class);
                 context.startService(service1);
+                minute = sharedpreferences.getInt(MINUTE, 10);
+                minute += 47;
+                editor.putInt(MINUTE, minute);
                 //minute +=47
                 //setalarmagain
             }
