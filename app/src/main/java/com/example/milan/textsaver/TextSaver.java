@@ -95,39 +95,11 @@ public class TextSaver extends AppCompatActivity implements View.OnClickListener
         AlarmManager manager = (AlarmManager) getSystemService(Activity.ALARM_SERVICE);
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.HOUR_OF_DAY, hour);
-        calendar.set(Calendar.MINUTE, minute);
-        manager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 46 * 60 * 1000, pendingIntent); // sets the alarm to go off every 47 minutes
-        //^ This alarm is later cancelled after 3 o'clock and starts again at 8:09 the next day
-        //Look at MyBroadcast Receiver class if interested, still working on it at the moment
+        calendar.set(Calendar.HOUR_OF_DAY, 8);
+        calendar.set(Calendar.MINUTE, 10);
+        manager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent); 
         //take out junk and just setalarm to 8:10 once make sharedpreferences so it only works once boolean
     }
-
-    public static int firstTimeAfter(int timeStart, int interval, int time, Context context)
-    {
-        int temp = timeStart;
-            if((temp + interval) % 100 < 60)
-            {
-                temp += interval;
-            }
-            else
-            {
-                int add = ((temp % 100) + interval) - 60;
-                temp = (((temp + 100) / 100) * 100) + add;
-            }
-        return temp;
-    }
-
-    public static int letsTry(int timeStart, int interval, int time, Context context)
-    {
-        int temp = timeStart;
-        while(temp < time) {
-            temp = firstTimeAfter(temp, 30, time, context);
-            temp = firstTimeAfter(temp, 16, time, context);
-        }
-        return temp;
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
