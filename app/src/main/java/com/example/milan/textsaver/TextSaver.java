@@ -91,7 +91,6 @@ public class TextSaver extends AppCompatActivity implements View.OnClickListener
     private void setAlarm() {
         tempBoolean = getSharedPreferences(BOOL_PREF, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = tempBoolean.edit();
-        boolean temp = true;
         Intent notificationIntent = new Intent(this, MyBroadcastReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
         AlarmManager manager = (AlarmManager) getSystemService(Activity.ALARM_SERVICE);
@@ -99,6 +98,7 @@ public class TextSaver extends AppCompatActivity implements View.OnClickListener
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.HOUR_OF_DAY, 8);
         calendar.set(Calendar.MINUTE, 10);
+        boolean temp = sharedpreferences.getBoolean(BOOL, true);
         if(temp = true){
             manager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent); 
             temp = false; 
