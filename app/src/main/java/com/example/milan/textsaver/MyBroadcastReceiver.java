@@ -34,7 +34,12 @@ import java.util.Calendar;
                         editor.putInt(MINUTE, 10);
                         hour = sharedpreferences.getInt(HOUR, 8);
                         minute = sharepreferences.getInt(MINUTE, 10);
-                        
+                        AlarmManager manager = (AlarmManager) getSystemService(Activity.ALARM_SERVICE);
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.set(Calendar.SECOND, 0);
+                        calendar.set(Calendar.HOUR_OF_DAY, hour);
+                        calendar.set(Calendar.MINUTE, minute);
+                        manager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
                         //reset to 8:10 and setalarm
                     }
 
@@ -42,9 +47,16 @@ import java.util.Calendar;
             {
                 Intent service1 = new Intent(context, MyAlarmService.class);
                 context.startService(service1);
+                hour = sharedpreferences.getInt(HOUR, 8);
                 minute = sharedpreferences.getInt(MINUTE, 10);
                 minute += 47;
                 editor.putInt(MINUTE, minute);
+                AlarmManager manager = (AlarmManager) getSystemService(Activity.ALARM_SERVICE);
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.SECOND, 0);
+                calendar.set(Calendar.HOUR_OF_DAY, hour);
+                calendar.set(Calendar.MINUTE, minute);
+                manager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
                 //minute +=47
                 //setalarmagain
             }
