@@ -93,27 +93,11 @@ public class TextSaver extends AppCompatActivity implements View.OnClickListener
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
         //This is basically saying that the system should wait for something to occur and when it does it should run that the NotificationIntent
         AlarmManager manager = (AlarmManager) getSystemService(Activity.ALARM_SERVICE);
-        //This is the object we use to get create an alarm
-        //Calendar Blubber = Calendar.getInstance(); //Gets the current date
-        int hourX;
-        int minuteX;
-        hourX = 8;//for real
-        minuteX = 10;//
         Calendar calendar = Calendar.getInstance();
-        if(calendar.get(Calendar.HOUR_OF_DAY) > 14)
-        {
-            calendar.set(Calendar.HOUR_OF_DAY, hourX);
-            calendar.set(Calendar.MINUTE, minuteX);
-            calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) + 1);
-        }
-        int time = letsTry(hourX * 100 + minuteX, 30, calendar.get(Calendar.HOUR_OF_DAY) * 100 + calendar.get(Calendar.MINUTE), TextSaver.this);
-        int hour = time / 100;
-        int minute = time % 100;
-        Toast.makeText(TextSaver.this, "Notification set for: " + hour + ": " + minute, Toast.LENGTH_LONG).show();
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.HOUR_OF_DAY, hour);
         calendar.set(Calendar.MINUTE, minute);
-        manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 46 * 60 * 1000, pendingIntent); // sets the alarm to go off every 47 minutes
+        manager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 46 * 60 * 1000, pendingIntent); // sets the alarm to go off every 47 minutes
         //^ This alarm is later cancelled after 3 o'clock and starts again at 8:09 the next day
         //Look at MyBroadcast Receiver class if interested, still working on it at the moment
         //take out junk and just setalarm to 8:10 once make sharedpreferences so it only works once boolean
