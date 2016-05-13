@@ -13,16 +13,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
+import android.content.SharedPreferences;
 import java.util.Calendar;
 
 
 public class TextSaver extends AppCompatActivity implements View.OnClickListener {
 
     public final static String STOREPERIOD = "j";//text file the period number and name is saved to
-
+    public static final String BOOL = "BOOL_PREF";
     Button period1, period2, period3, period4, period5, period6, period7, period8, period9; // declaration of button objects
-
+    SharedPreferences tempBoolean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
