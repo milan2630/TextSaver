@@ -20,7 +20,8 @@ import java.util.Calendar;
 public class TextSaver extends AppCompatActivity implements View.OnClickListener {
 
     public final static String STOREPERIOD = "j";//text file the period number and name is saved to
-    public static final String BOOL = "BOOL_PREF";
+    public static final String BOOL_PREF = "BOOL_PREF";
+    public static final String BOOL = "BOOL";
     Button period1, period2, period3, period4, period5, period6, period7, period8, period9; // declaration of button objects
     SharedPreferences tempBoolean;
 
@@ -88,17 +89,23 @@ public class TextSaver extends AppCompatActivity implements View.OnClickListener
     }
 
     private void setAlarm() {
+        tempBoolean = getSharedPreferences(BOOL_PREF, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = tempBoolean.edit();
+        boolean temp = true;
         Intent notificationIntent = new Intent(this, MyBroadcastReceiver.class);
-        //This intent states that, depending which action it is linked to, will run code in the MyBroadcast class
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-        //This is basically saying that the system should wait for something to occur and when it does it should run that the NotificationIntent
         AlarmManager manager = (AlarmManager) getSystemService(Activity.ALARM_SERVICE);
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.HOUR_OF_DAY, 8);
         calendar.set(Calendar.MINUTE, 10);
-        manager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent); 
+        if(temp = true){
+            manager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent); 
+            temp = false; 
+            editor.putBoolean(BOOL, temp);
+        }
         //take out junk and just setalarm to 8:10 once make sharedpreferences so it only works once boolean
+        
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
